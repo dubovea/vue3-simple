@@ -1,0 +1,44 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="theme.css" />
+</head>
+
+<body>
+    <div class="container" id="app">
+        <div class="card">
+            <h1 :style="{
+                color: inputValue.length < 5 ? 'darkred' : 'darkblue',
+                fontSize: inputValue.length < 6 ? '2rem' : '3rem'
+            }">
+                {{title}}
+            </h1>
+            <div class="form-control">
+                <input type="text" v-model="inputValue" :placeholder="sPlaceholder" @keypress.enter="onAddNewNote" />
+            </div>
+            <button @click="onAddNewNote" class="btn">Добавить</button>
+            <hr />
+            <ul class="list" v-if="notes.length">
+                <li class="list-item" v-for="(note,index) in notes">
+                    <!-- <span :class="note.length > 5 ?  'primary' : 'bold'">({{index + 1}}) {{note.toUpperCase()}} </span> -->
+                    <!-- <span :class="{
+                        'primary': true,
+                        'bold' : note.length > 5
+                    }">({{index + 1}}) {{note.toUpperCase()}} </span> -->
+                    <span :class="['bold', {'primary': note.length > 5}]">({{index + 1}}) {{note.toUpperCase()}} </span>
+                    <button @click="onDeleteNote(index)" class="btn danger">удалить</button>
+                </li>
+                <hr />
+                <li>
+                    <strong> Общее количество: {{doubleCountComputed}}</strong>
+                </li>
+            </ul>
+            <div v-else>Заметок пока что нет</div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="appbase.js"></script>
+</body>
+
+</html>
